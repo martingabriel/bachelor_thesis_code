@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace StudentsNotifier.MobileAppService.Models
 {
-    public class IUserRepository
+    public interface IUserRepository
     {
-        public IUserRepository()
-        {
-        }
+        void Add(User item);
+        void Update(User item);
+        User Remove(string id);
+        User Get(string id);
+        IEnumerable<User> GetAll();
     }
 }

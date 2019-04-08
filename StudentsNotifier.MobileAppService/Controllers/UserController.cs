@@ -1,10 +1,71 @@
 ﻿using System;
+using Microsoft.AspNetCore.Mvc;
+using StudentsNotifier.MobileAppService.Models;
+
 namespace StudentsNotifier.MobileAppService.Controllers
 {
-    public class UserController
+    [Route("api/[controller]")]
+    public class UserController : Controller
     {
-        public UserController()
+        private readonly IUserRepository UserRepository;
+
+        public UserController(IUserRepository userRepository)
         {
+            UserRepository = userRepository;
+        }
+
+        [HttpGet]
+        public IActionResult List()
+        {
+            return Ok(UserRepository.GetAll());
+        }
+
+        [HttpGet("{id}")]
+        public User GetItem(string id)
+        {
+            User user = UserRepository.Get(id);
+            return user;
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody]User user)
+        {
+            try
+            {
+                if (user == null || !ModelState.IsValid)
+                    return BadRequest("Invalid state");
+
+                UserRepository.Add(user);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Error");
+            }
+            return Ok(user);
+        }
+
+        [HttpPut]
+        public IActionResult Edit([FromBody]User user)
+        {
+            try
+            {
+                if (user == null || !ModelState.IsValid)
+                    return BadRequest("Invalid state");
+
+                UserRepository.Add(user);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Error while creating");
+            }
+
+            return Ok(user);
+        }
+
+        [HttpDelete("{id}")]
+        public void Delete(string id)
+        {
+            UserRepository.Remove(id);
         }
     }
 }

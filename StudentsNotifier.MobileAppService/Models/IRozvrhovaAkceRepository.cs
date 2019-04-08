@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace StudentsNotifier.MobileAppService.Models
 {
-    public class IRozvrhovaAkceRepository
+    public interface IRozvrhovaAkceRepository
     {
-        public IRozvrhovaAkceRepository()
-        {
-        }
+        List<RozvrhovaAkce> Get(string userId);
+        //IEnumerable<RozvrhoveAkce> GetAll();
     }
 }
