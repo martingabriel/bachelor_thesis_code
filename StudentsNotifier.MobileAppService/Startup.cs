@@ -34,6 +34,7 @@ namespace StudentsNotifier.MobileAppService
             services.AddSingleton<IItemRepository, ItemRepository>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IRozvrhovaAkceRepository, RozvrhoveAkceRepository>();
+            services.AddSingleton<IMessageRepository, MessageRepository>();
 
             services.AddSwaggerGen(c =>
             {
