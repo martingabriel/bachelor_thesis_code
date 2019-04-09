@@ -34,14 +34,18 @@ namespace StudentsNotifier.MobileAppService.Controllers
             {
                 if (item == null || !ModelState.IsValid)
                 {
+                    item.SendMessageResult = false;
                     return BadRequest("Invalid State");
                 }
 
                 MessageRepository.Add(item);
 
+                // send push notification message and store result
+                // item.SendMessageResult = true;
             }
             catch (Exception)
             {
+                item.SendMessageResult = false;
                 return BadRequest("Error while creating");
             }
             return Ok(item);

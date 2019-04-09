@@ -10,5 +10,6 @@ namespace StudentsNotifier.MobileAppService.Models
         public string MessageText { get; set; }
         public List<string> UserIds { get; set; }
         public string MessageFrom { get; set; }
+        public bool SendMessageResult { get; set; }
     }
 }

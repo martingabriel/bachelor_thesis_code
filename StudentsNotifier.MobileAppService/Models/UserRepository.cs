@@ -13,9 +13,9 @@ namespace StudentsNotifier.MobileAppService.Models
 
         public UserRepository()
         {
-            Add(new User { Id = Guid.NewGuid().ToString(), MainName = "User 1", Surname = "Test 1" });
-            Add(new User { Id = Guid.NewGuid().ToString(), MainName = "User 2", Surname = "Test 2" });
-            Add(new User { Id = Guid.NewGuid().ToString(), MainName = "User 3", Surname = "Test 3" });
+            Add(new User { Id = Guid.NewGuid().ToString(), Name = "User 1", Role = "ST"});
+            Add(new User { Id = Guid.NewGuid().ToString(), Name = "User 2", Role = "UC"});
+            Add(new User { Id = Guid.NewGuid().ToString(), Name = "User 3", Role = "ST"});
         }
 
         public void Add(User user)
