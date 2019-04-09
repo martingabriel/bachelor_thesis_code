@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 
-using StudentsNotifier.Models;
 using StudentsNotifier.MobileAppService.Models;
 
 namespace StudentsNotifier.MobileAppService
@@ -31,7 +30,6 @@ namespace StudentsNotifier.MobileAppService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddSingleton<IItemRepository, ItemRepository>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IRozvrhovaAkceRepository, RozvrhoveAkceRepository>();
             services.AddSingleton<IMessageRepository, MessageRepository>();

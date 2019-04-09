@@ -9,4 +9,10 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Models\IItemRepository.cs" />
+    <Compile Remove="Models\Item.cs" />
+    <Compile Remove="Models\ItemRepository.cs" />
+    <Compile Remove="Controllers\ItemController.cs" />
+  </ItemGroup>
 </Project>
