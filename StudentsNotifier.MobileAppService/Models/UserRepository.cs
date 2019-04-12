@@ -24,7 +24,6 @@ namespace StudentsNotifier.MobileAppService.Models
             users[user.Id] = user;
         }
 
-
         public User Find(string id)
         {
             User user;
