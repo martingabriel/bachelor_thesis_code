@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using StudentsNotifier.MobileAppService.Models;
 
@@ -66,6 +67,13 @@ namespace StudentsNotifier.MobileAppService.Controllers
         public void Delete(string id)
         {
             UserRepository.Remove(id);
+        }
+
+        [HttpGet("RozvrhoveAkce/{id}")]
+        public List<RozvrhovaAkce> GetRozvrhoveAkce(string id)
+        {
+            var result = UserRepository.GetRozvrhoveAkce(id);
+            return result;
         }
     }
 }

@@ -10,5 +10,7 @@ namespace StudentsNotifier.MobileAppService.Models
         User Remove(string id);
         User Get(string id);
         IEnumerable<User> GetAll();
+
+        List<RozvrhovaAkce> GetRozvrhoveAkce(string stagId);
     }
 }

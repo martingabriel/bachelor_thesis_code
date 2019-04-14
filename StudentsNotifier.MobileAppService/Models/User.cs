@@ -6,6 +6,7 @@ namespace StudentsNotifier.MobileAppService.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public string Role { get; set; }
+        public string StagID { get; set; }
         public string NotificationToken { get; set; }
     }
 }
