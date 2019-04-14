@@ -14,5 +14,7 @@ namespace StudentsNotifier.MobileAppService.Models
         void AddVote(Vote vote);
         Vote GetVote(string id);
         Vote RemoveVote(string id);
+
+        bool SendVoteRequest(VoteRequest request);
     }
 }

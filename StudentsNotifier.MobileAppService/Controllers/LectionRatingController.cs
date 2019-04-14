@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using StudentsNotifier.MobileAppService.Models;
 
@@ -13,6 +14,8 @@ namespace StudentsNotifier.MobileAppService.Controllers
         {
             LectionRatingRepository = lectionRatingRepository;
         }
+
+        #region LectionRating
 
         [HttpGet]
         public IActionResult List()
@@ -50,7 +53,9 @@ namespace StudentsNotifier.MobileAppService.Controllers
             LectionRatingRepository.Remove(id);
         }
 
+        #endregion
 
+        #region Vote
 
         [HttpPut("Vote/")]
         public IActionResult PutVote([FromBody]Vote vote)
@@ -81,5 +86,29 @@ namespace StudentsNotifier.MobileAppService.Controllers
         {
             LectionRatingRepository.RemoveVote(id);
         }
+
+        #endregion
+
+        #region Vote request
+
+        [HttpPut("SendVoteRequest/")]
+        public IActionResult SendVoteRequest([FromBody]VoteRequest request)
+        {
+            try
+            {
+                if (request == null || !ModelState.IsValid)
+                    return BadRequest("Invalid state");
+
+                // DEBUG: Send vote request
+                Debug.WriteLine("\nSend vote request to lection: " + request.LectionRatingId + "\n");
+            }
+            catch (Exception)
+            {
+                return BadRequest("Error");
+            }
+            return Ok(request);
+        }
+
+        #endregion
     }
 }

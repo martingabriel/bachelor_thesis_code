@@ -23,4 +23,11 @@ namespace StudentsNotifier.MobileAppService.Models
         public string LectionRatingId { get; set; }
         public int UserVote { get; set; }
     }
+
+    public class VoteRequest
+    {
+        public string LectionRatingId { get; set; }
+        public List<string> UserToRequestIds { get; set; }
+        public bool SendRequestResult { get; set; }
+    }
 }

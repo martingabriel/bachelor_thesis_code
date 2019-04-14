@@ -20,6 +20,8 @@ namespace StudentsNotifier.MobileAppService.Models
             Add(new LectionRating { Id = "guid1", Votes = tuples });
         }
 
+        #region LectionRating
+
         public void Add(LectionRating item)
         {
             item.Id = Guid.NewGuid().ToString();
@@ -49,7 +51,9 @@ namespace StudentsNotifier.MobileAppService.Models
             lections[item.Id] = item;
         }
 
+        #endregion
 
+        #region Vote
 
         public void AddVote(Vote vote)
         {
@@ -75,5 +79,19 @@ namespace StudentsNotifier.MobileAppService.Models
 
             return vote;
         }
+
+        #endregion
+
+        #region Vote request
+
+        public bool SendVoteRequest(VoteRequest request)
+        {
+            // send request
+            request.SendRequestResult = true;
+
+            return request.SendRequestResult;
+        }
+
+        #endregion
     }
 }
