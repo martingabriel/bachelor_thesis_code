@@ -57,7 +57,7 @@ namespace StudentsNotifier.MobileAppService.Controllers
 
         #region Vote
 
-        [HttpPut("Vote/")]
+        [HttpPost("Vote/")]
         public IActionResult PutVote([FromBody]Vote vote)
         {
             try
@@ -91,7 +91,7 @@ namespace StudentsNotifier.MobileAppService.Controllers
 
         #region Vote request
 
-        [HttpPut("SendVoteRequest/")]
+        [HttpPost("SendVoteRequest/")]
         public IActionResult SendVoteRequest([FromBody]VoteRequest request)
         {
             try
