@@ -6,9 +6,10 @@ using StudentsNotifier.Models;
 
 namespace StudentsNotifier.Services
 {
-    public class MockDataStore : IDataStore<Item>
+    public class MockDataStore : IDataStore
     {
         List<Item> items;
+        List<Message> messages;
 
         public MockDataStore()
         {
@@ -17,16 +18,20 @@ namespace StudentsNotifier.Services
             {
                 new Item { Id = Guid.NewGuid().ToString(), Text = "First item", Description="This is an item description." },
                 new Item { Id = Guid.NewGuid().ToString(), Text = "Second item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Third item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Fourth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Fifth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Sixth item", Description="This is an item description." },
+            };
+
+            messages = new List<Message>();
+            var mockMessages = new List<Message>
+            {
+                new Message { Id = Guid.NewGuid().ToString(), MessageText = "Test message text ...", MessageFrom="Test user 1" },
+                new Message { Id = Guid.NewGuid().ToString(), MessageText = "Test message text ...", MessageFrom="Test user 2" },
             };
 
             foreach (var item in mockItems)
-            {
                 items.Add(item);
-            }
+
+            foreach (var msg in mockMessages)
+                messages.Add(msg);
         }
 
         public async Task<bool> AddItemAsync(Item item)
@@ -61,6 +66,36 @@ namespace StudentsNotifier.Services
         public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
         {
             return await Task.FromResult(items);
+        }
+
+        public async Task<bool> AddMessageAsync(Message message)
+        {
+            messages.Add(message);
+
+            return await Task.FromResult(true);
+        }
+
+        public async Task<bool> DeleteMessageAsync(string id)
+        {
+            var oldMessage = messages.Where((Message arg) => arg.Id == id).FirstOrDefault();
+            messages.Remove(oldMessage);
+
+            return await Task.FromResult(true);
+        }
+
+        public async Task<Message> GetMessageAsync(string id)
+        {
+            return await Task.FromResult(messages.FirstOrDefault(s => s.Id == id));
+        }
+
+        public async Task<IEnumerable<Message>> GetUserMessagesAsync(string id)
+        {
+            return await Task.FromResult(messages.Where(msg => msg.UserIds.Contains(id)));
+        }
+
+        public async Task<IEnumerable<Message>> GetAllMessagesAsync(bool forceRefresh = false)
+        {
+            return await Task.FromResult(messages);
         }
     }
 }

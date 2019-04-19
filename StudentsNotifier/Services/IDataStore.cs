@@ -1,15 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using StudentsNotifier.Models;
 
 namespace StudentsNotifier.Services
 {
-    public interface IDataStore<T>
+    public interface IDataStore
     {
-        Task<bool> AddItemAsync(T item);
-        Task<bool> UpdateItemAsync(T item);
+        Task<bool> AddItemAsync(Item item);
+        Task<bool> UpdateItemAsync(Item item);
         Task<bool> DeleteItemAsync(string id);
-        Task<T> GetItemAsync(string id);
-        Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
+        Task<Item> GetItemAsync(string id);
+        Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false);
+
+        // Messages
+        Task<bool> AddMessageAsync(Message message);
+        Task<bool> DeleteMessageAsync(string id);
+        Task<Message> GetMessageAsync(string id);
+        Task<IEnumerable<Message>> GetUserMessagesAsync(string id);
+        Task<IEnumerable<Message>> GetAllMessagesAsync(bool forceRefresh = false);
     }
 }

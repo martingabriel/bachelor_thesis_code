@@ -13,4 +13,12 @@
     <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />  
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\MessageDetailPage.xaml.cs">
+      <DependentUpon>MessageDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\NewMessagePage.xaml.cs">
+      <DependentUpon>NewMessagePage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>
