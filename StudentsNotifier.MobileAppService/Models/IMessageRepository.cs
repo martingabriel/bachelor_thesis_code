@@ -8,6 +8,7 @@ namespace StudentsNotifier.MobileAppService.Models
         void Add(Message msg);
         Message Remove(string id);
         Message Get(string id);
+        IEnumerable<Message> GetUserMessages(string id);
         IEnumerable<Message> GetAll();
     }
 }

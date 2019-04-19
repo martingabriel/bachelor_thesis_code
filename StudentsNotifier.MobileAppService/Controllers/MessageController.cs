@@ -23,8 +23,14 @@ namespace StudentsNotifier.MobileAppService.Controllers
         [HttpGet("{id}")]
         public Message GetItem(string id)
         {
-            Message item = MessageRepository.Get(id);
-            return item;
+            Message message = MessageRepository.Get(id);
+            return message;
+        }
+
+        [HttpGet("UserMessages/{id}")]
+        public IActionResult GetUserMessages(string id)
+        {
+            return Ok(MessageRepository.GetUserMessages(id));
         }
 
         [HttpPost]
