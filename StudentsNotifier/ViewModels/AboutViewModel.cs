@@ -1,19 +1,55 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Input;
-
+using StudentsNotifier.Models;
 using Xamarin.Forms;
 
 namespace StudentsNotifier.ViewModels
 {
     public class AboutViewModel : BaseViewModel
     {
-        public AboutViewModel()
-        {
-            Title = "About";
+        public User LoggedUser { get; set; }
+        public ICommand GetUserData { get; }
 
-            OpenWebCommand = new Command(() => Device.OpenUri(new Uri("https://xamarin.com/platform")));
+        string title = string.Empty;
+        public string LoggedUserId
+        {
+            get { return title; }
+            set { SetProperty(ref title, value); }
         }
 
-        public ICommand OpenWebCommand { get; }
+        public AboutViewModel(User usr = null)
+        {
+            Title = "Settings";
+            LoggedUser = usr;
+            LoggedUserId = LoggedUser.Id;
+
+            GetUserData = new Command(async () => await ExecuteLoadUserDataCommand());
+        }
+
+        async Task ExecuteLoadUserDataCommand()
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                User result = await DataStore.AddUserAsync(LoggedUser);
+                LoggedUser = result;
+                LoggedUserId = LoggedUser.Id;
+                Debug.WriteLine("User [" + LoggedUser.StagID  + "] ID: " + LoggedUser.Id);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
     }
 }

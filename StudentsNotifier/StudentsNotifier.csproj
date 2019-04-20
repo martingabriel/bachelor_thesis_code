@@ -20,5 +20,8 @@
     <Compile Update="Views\NewMessagePage.xaml.cs">
       <DependentUpon>NewMessagePage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\MessagePage.xaml.cs">
+      <DependentUpon>MessagePage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

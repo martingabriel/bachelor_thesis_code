@@ -156,6 +156,31 @@ namespace StudentsNotifier.Services
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<User> AddUserAsync(User user)
+        {
+            if (user == null)
+                return null;
+
+            var serializedItem = JsonConvert.SerializeObject(user);
+
+            var response = await client.PostAsync($"api/User", new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+
+            string responseJson = await response.Content.ReadAsStringAsync();
+            var responseUser = JsonConvert.DeserializeObject<User>(responseJson);
+            return responseUser;
+        }
+
+        public async Task<User> GetUserAsync(string id)
+        {
+            if (id != null)
+            {
+                var json = await client.GetStringAsync($"api/User/{id}");
+                return await Task.Run(() => JsonConvert.DeserializeObject<User>(json));
+            }
+
+            return null;
+        }
+
         #endregion
     }
 }

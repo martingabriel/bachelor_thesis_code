@@ -21,6 +21,7 @@ namespace StudentsNotifier.Services
         Task<IEnumerable<Message>> GetAllMessagesAsync(bool forceRefresh = false);
 
         // User
-
+        Task<User> AddUserAsync(User user);
+        Task<User> GetUserAsync(string id);
     }
 }

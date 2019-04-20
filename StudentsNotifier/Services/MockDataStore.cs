@@ -97,5 +97,15 @@ namespace StudentsNotifier.Services
         {
             return await Task.FromResult(messages);
         }
+
+        public Task<User> AddUserAsync(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<User> GetUserAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
