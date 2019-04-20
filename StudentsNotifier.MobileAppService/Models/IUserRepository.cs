@@ -11,6 +11,7 @@ namespace StudentsNotifier.MobileAppService.Models
         User Get(string id);
         IEnumerable<User> GetAll();
 
-        List<RozvrhovaAkce> GetRozvrhoveAkce(string stagId);
+        IEnumerable<RozvrhovaAkce> GetRozvrhoveAkce(string stagId);
+        IEnumerable<string> GetUserIDsByRozvrhoveAkce(string rozvrhovaAkceId);
     }
 }

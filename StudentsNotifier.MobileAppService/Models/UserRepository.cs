@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Net.WebSockets;
 using System.Net;
 using System.Diagnostics;
+using System.Linq;
 
 namespace StudentsNotifier.MobileAppService.Models
 {
@@ -56,7 +57,7 @@ namespace StudentsNotifier.MobileAppService.Models
             users[user.Id] = user;
         }
 
-        public List<RozvrhovaAkce> GetRozvrhoveAkce(string userId)
+        public IEnumerable<RozvrhovaAkce> GetRozvrhoveAkce(string userId)
         {
             if (users[userId] != null)
             {
@@ -68,7 +69,8 @@ namespace StudentsNotifier.MobileAppService.Models
                     {
                         string jsonString = wc.DownloadString("https://stag-ws.utb.cz/ws/services/rest2/rozvrhy/getRozvrhByStudent?outputFormat=JSON&osCislo=" + stagId);
                         var rozvrhoveAkce = RozvrhoveAkce.FromJson(jsonString);
-                        return rozvrhoveAkce.RozvrhovaAkce;
+                        users[userId].SetRozvrhoveAkce(rozvrhoveAkce.RozvrhovaAkce);
+                        return users[userId].RozvrhoveAkce;
                     }
                     catch (Exception)
                     {
@@ -79,6 +81,14 @@ namespace StudentsNotifier.MobileAppService.Models
             }
             else
                 return null;
+        }
+
+        public IEnumerable<string> GetUserIDsByRozvrhoveAkce(string rozvrhovaAkceId)
+        {
+            var resultUser = users.Values.Where(usr => usr.ContainsRoakce(rozvrhovaAkceId));
+            var result = (from u in resultUser select u.Id);
+
+            return result;
         }
     }
 }

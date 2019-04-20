@@ -70,9 +70,16 @@ namespace StudentsNotifier.MobileAppService.Controllers
         }
 
         [HttpGet("RozvrhoveAkce/{id}")]
-        public List<RozvrhovaAkce> GetRozvrhoveAkce(string id)
+        public IEnumerable<RozvrhovaAkce> GetRozvrhoveAkce(string id)
         {
             var result = UserRepository.GetRozvrhoveAkce(id);
+            return result;
+        }
+
+        [HttpGet("UserIDsByRozvrhovaAkce/{id}")]
+        public IEnumerable<string> GetUserIDsByRozvrhovaAkce(string id)
+        {
+            var result = UserRepository.GetUserIDsByRozvrhoveAkce(id);
             return result;
         }
     }
