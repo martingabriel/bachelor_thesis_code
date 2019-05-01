@@ -193,6 +193,16 @@ namespace StudentsNotifier.Models
         public object PodilNaVyuce { get; set; }
     }
 
+    public partial class RozvrhoveAkce
+    {
+        public static List<RozvrhovaAkce> FromJson(string json) => JsonConvert.DeserializeObject<List<RozvrhovaAkce>>(json, StudentsNotifier.Models.Converter.Settings);
+    }
+
+    public static class Serialize
+    {
+        public static string ToJson(this RozvrhoveAkce self) => JsonConvert.SerializeObject(self, StudentsNotifier.Models.Converter.Settings);
+    }
+
     internal static class Converter
     {
         public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings

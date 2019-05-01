@@ -5,11 +5,8 @@ using System.Globalization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-//    var rozvrhoveAkce = RozvrhoveAkce.FromJson(jsonString);
-
 namespace StudentsNotifier.MobileAppService.Models
 {
-
     public partial class RozvrhoveAkce
     {
         [JsonProperty("rozvrhovaAkce")]

@@ -8,17 +8,10 @@ namespace StudentsNotifier.Services
 {
     public class MockDataStore : IDataStore
     {
-        List<Item> items;
         List<Message> messages;
 
         public MockDataStore()
         {
-            items = new List<Item>();
-            var mockItems = new List<Item>
-            {
-                new Item { Id = Guid.NewGuid().ToString(), Text = "First item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Second item", Description="This is an item description." },
-            };
 
             messages = new List<Message>();
             var mockMessages = new List<Message>
@@ -27,45 +20,8 @@ namespace StudentsNotifier.Services
                 new Message { Id = Guid.NewGuid().ToString(), MessageText = "Test message text ...", MessageFrom="Test user 2" },
             };
 
-            foreach (var item in mockItems)
-                items.Add(item);
-
             foreach (var msg in mockMessages)
                 messages.Add(msg);
-        }
-
-        public async Task<bool> AddItemAsync(Item item)
-        {
-            items.Add(item);
-
-            return await Task.FromResult(true);
-        }
-
-        public async Task<bool> UpdateItemAsync(Item item)
-        {
-            var oldItem = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
-            items.Remove(oldItem);
-            items.Add(item);
-
-            return await Task.FromResult(true);
-        }
-
-        public async Task<bool> DeleteItemAsync(string id)
-        {
-            var oldItem = items.Where((Item arg) => arg.Id == id).FirstOrDefault();
-            items.Remove(oldItem);
-
-            return await Task.FromResult(true);
-        }
-
-        public async Task<Item> GetItemAsync(string id)
-        {
-            return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
-        }
-
-        public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
-        {
-            return await Task.FromResult(items);
         }
 
         public async Task<bool> AddMessageAsync(Message message)
@@ -104,6 +60,26 @@ namespace StudentsNotifier.Services
         }
 
         public Task<User> GetUserAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<RozvrhoveAkce> GetUserRozvrhoveAkceAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> GetLoggedUserID()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<List<RozvrhovaAkce>> IDataStore.GetUserRozvrhoveAkceAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<string>> GetUserIdsByRozvrhovaAkceAsync(string id)
         {
             throw new NotImplementedException();
         }

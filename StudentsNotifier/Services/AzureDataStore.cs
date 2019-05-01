@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,79 +13,16 @@ namespace StudentsNotifier.Services
     public class AzureDataStore : IDataStore
     {
         HttpClient client;
-        IEnumerable<Item> items;
         IEnumerable<Message> messages;
+        string LoggedUserID;
 
         public AzureDataStore()
         {
             client = new HttpClient();
             client.BaseAddress = new Uri($"{App.AzureBackendUrl}/");
 
-            items = new List<Item>();
             messages = new List<Message>();
         }
-
-        #region Item
-
-        public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
-        {
-            if (forceRefresh)
-            {
-                var json = await client.GetStringAsync($"api/item");
-                items = await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<Item>>(json));
-            }
-
-            return items;
-        }
-
-        public async Task<Item> GetItemAsync(string id)
-        {
-            if (id != null)
-            {
-                var json = await client.GetStringAsync($"api/item/{id}");
-                return await Task.Run(() => JsonConvert.DeserializeObject<Item>(json));
-            }
-
-            return null;
-        }
-
-        public async Task<bool> AddItemAsync(Item item)
-        {
-            if (item == null)
-                return false;
-
-            var serializedItem = JsonConvert.SerializeObject(item);
-
-            var response = await client.PostAsync($"api/item", new StringContent(serializedItem, Encoding.UTF8, "application/json"));
-
-            return response.IsSuccessStatusCode;
-        }
-
-        public async Task<bool> UpdateItemAsync(Item item)
-        {
-            if (item == null || item.Id == null)
-                return false;
-
-            var serializedItem = JsonConvert.SerializeObject(item);
-            var buffer = Encoding.UTF8.GetBytes(serializedItem);
-            var byteContent = new ByteArrayContent(buffer);
-
-            var response = await client.PutAsync(new Uri($"api/item/{item.Id}"), byteContent);
-
-            return response.IsSuccessStatusCode;
-        }
-
-        public async Task<bool> DeleteItemAsync(string id)
-        {
-            if (string.IsNullOrEmpty(id))
-                return false;
-
-            var response = await client.DeleteAsync($"api/item/{id}");
-
-            return response.IsSuccessStatusCode;
-        }
-
-        #endregion
 
         #region Message
 
@@ -156,6 +95,10 @@ namespace StudentsNotifier.Services
             return response.IsSuccessStatusCode;
         }
 
+        #endregion
+
+        #region User
+
         public async Task<User> AddUserAsync(User user)
         {
             if (user == null)
@@ -167,6 +110,7 @@ namespace StudentsNotifier.Services
 
             string responseJson = await response.Content.ReadAsStringAsync();
             var responseUser = JsonConvert.DeserializeObject<User>(responseJson);
+            LoggedUserID = responseUser.Id;
             return responseUser;
         }
 
@@ -176,6 +120,46 @@ namespace StudentsNotifier.Services
             {
                 var json = await client.GetStringAsync($"api/User/{id}");
                 return await Task.Run(() => JsonConvert.DeserializeObject<User>(json));
+            }
+
+            return null;
+        }
+
+        public async Task<List<RozvrhovaAkce>> GetUserRozvrhoveAkceAsync(string id)
+        {
+            if (id != null)
+            {
+                using (WebClient wc = new WebClient())
+                {
+                    try
+                    {
+                        string address = client.BaseAddress + $"api/User/RozvrhoveAkce/{id}";
+                        string jsonString = wc.DownloadString(address);
+                        var rozvrhoveAkce = RozvrhoveAkce.FromJson(jsonString);
+                        return await Task.Run(() => rozvrhoveAkce);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Json read failed..\n" + ex.ToString());
+                        return null;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public async Task<string> GetLoggedUserID()
+        {
+            return LoggedUserID;
+        }
+
+        public async Task<IEnumerable<string>> GetUserIdsByRozvrhovaAkceAsync(string id)
+        {
+            if (id != null)
+            {
+                var json = await client.GetStringAsync($"api/User/UserIDsByRozvrhovaAkce/{id}");
+                return await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<string>>(json));
             }
 
             return null;

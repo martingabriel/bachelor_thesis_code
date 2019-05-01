@@ -25,7 +25,8 @@ namespace StudentsNotifier.Views
 
             var LoggedUser = new User
             {
-                StagID = "stag_abcd1234",
+                Name = "Martin Gabriel",
+                StagID = "A15655",
                 Id = "testID"
             };
 
