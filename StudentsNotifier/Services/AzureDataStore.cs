@@ -25,6 +25,7 @@ namespace StudentsNotifier.Services
             client.BaseAddress = new Uri($"{App.AzureBackendUrl}/");
 
             messages = new List<Message>();
+            LoggedUserNotificationToken = "1234"; // default debug
         }
 
         #region Message
