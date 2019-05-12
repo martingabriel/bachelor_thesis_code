@@ -14,7 +14,10 @@ namespace StudentsNotifier.Services
     {
         HttpClient client;
         IEnumerable<Message> messages;
+        IEnumerable<LectionRating> ratings;
         string LoggedUserID;
+        string LoggedUserName;
+        string LoggedUserNotificationToken;
 
         public AzureDataStore()
         {
@@ -111,6 +114,7 @@ namespace StudentsNotifier.Services
             string responseJson = await response.Content.ReadAsStringAsync();
             var responseUser = JsonConvert.DeserializeObject<User>(responseJson);
             LoggedUserID = responseUser.Id;
+            LoggedUserName = responseUser.Name;
             return responseUser;
         }
 
@@ -154,12 +158,99 @@ namespace StudentsNotifier.Services
             return LoggedUserID;
         }
 
+        public async Task<string> GetLoggedUserName()
+        {
+            return LoggedUserName;
+        }
+
         public async Task<IEnumerable<string>> GetUserIdsByRozvrhovaAkceAsync(string id)
         {
             if (id != null)
             {
                 var json = await client.GetStringAsync($"api/User/UserIDsByRozvrhovaAkce/{id}");
                 return await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<string>>(json));
+            }
+
+            return null;
+        }
+
+        public void SetLoggedUserNotificationToken(string token)
+        {
+            Debug.WriteLine("[SET]" + token);
+            this.LoggedUserNotificationToken = token;
+        }
+
+        public string GetLoggedUserNotificationToken()
+        {
+            Debug.WriteLine("[GET]" + LoggedUserNotificationToken);
+            return this.LoggedUserNotificationToken;
+        }
+
+        #endregion
+
+        #region Lection Rating
+
+        public async Task<LectionRating> AddLectionRating(LectionRating rating)
+        {
+            if (rating == null)
+                return null;
+
+            var serializedItem = JsonConvert.SerializeObject(rating);
+
+            var response = await client.PostAsync($"api/LectionRating", new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+
+            string responseJson = await response.Content.ReadAsStringAsync();
+            var responseRating = JsonConvert.DeserializeObject<LectionRating>(responseJson);
+            return responseRating;
+        }
+
+        public async Task<Vote> GetVote(string id)
+        {
+            if (id != null)
+            {
+                var json = await client.GetStringAsync($"api/LectionRating/Vote/{id}");
+                return await Task.Run(() => JsonConvert.DeserializeObject<Vote>(json));
+            }
+
+            return null;
+        }
+
+        public async Task<Vote> AddVoteAsync(Vote vote)
+        {
+            if (vote == null)
+                return null;
+
+            var serializedItem = JsonConvert.SerializeObject(vote);
+
+            var response = await client.PostAsync($"api/LectionRating/Vote", new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+
+            string responseJson = await response.Content.ReadAsStringAsync();
+            var responseVote = JsonConvert.DeserializeObject<Vote>(responseJson);
+            return responseVote;
+        }
+
+        public async Task<VoteRequest> SendVoteRequest()
+        {
+            var json = await client.GetStringAsync($"api/LectionRating/SendVoteRequest");
+            VoteRequest request = await Task.Run(() => JsonConvert.DeserializeObject<VoteRequest>(json));
+
+            return request;
+        }
+
+        public async Task<IEnumerable<LectionRating>> GetAllLecitonRatings()
+        {
+            var json = await client.GetStringAsync($"api/LectionRating");
+            ratings = await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<LectionRating>>(json));
+
+            return ratings;
+        }
+
+        public async Task<LectionRating> GetLectionRating(string id)
+        {
+            if (id != null)
+            {
+                var json = await client.GetStringAsync($"api/LectionRating/{id}");
+                return await Task.Run(() => JsonConvert.DeserializeObject<LectionRating>(json));
             }
 
             return null;

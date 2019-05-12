@@ -83,5 +83,55 @@ namespace StudentsNotifier.Services
         {
             throw new NotImplementedException();
         }
+
+        public void SetLoggedUserNotificationToken(string token)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetLoggedUserNotificationToken()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<LectionRating> GetLectionRating(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<LectionRating> AddLectionRating(LectionRating rating)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Vote> GetVote(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Vote> AddVote(Vote vote)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<VoteRequest> SendVoteRequest()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> GetLoggedUserName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<LectionRating>> GetAllLecitonRatings()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Vote> AddVoteAsync(Vote vote)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

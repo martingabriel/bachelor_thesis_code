@@ -26,7 +26,7 @@ namespace StudentsNotifier.Views
 
             var msg = new Message
             {
-                MessageText = "Message text...",
+                MessageText = "Text zprávy...",
                 DateTime = DateTime.Now,
                 MessageFrom = "123abc"
             };

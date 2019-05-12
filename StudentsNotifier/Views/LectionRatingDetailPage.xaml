@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:forms="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+    x:Class="StudentsNotifier.Views.LectionRatingDetailPage"
+    Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Nové hodnocení" Clicked="AddVote_Clicked">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP" Value="add.png" />
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Spacing="20" Padding="20">
+            <Label Text="{Binding rating.LectionName}" FontSize="Large"/>
+            <Label Text="Průměrné hodnocení:" FontSize="Medium"/>
+            <Label Text="{Binding rating.AvgVote}" FontSize="Small"/>
+            
+            <forms:ChartView x:Name="VoteChart" HeightRequest="250"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

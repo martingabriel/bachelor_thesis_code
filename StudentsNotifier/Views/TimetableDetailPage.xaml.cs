@@ -40,6 +40,13 @@ namespace StudentsNotifier.Views
             await viewModel.ExecuteLoadStudentsCommand();
         }
 
+        void Handle_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            Picker picker = sender as Picker;
+
+            viewModel.SelectedMessage = picker.SelectedItem.ToString();
+        }
+
         private void OnDelete(object sender, EventArgs e)
         {
             var mi = ((MenuItem)sender);

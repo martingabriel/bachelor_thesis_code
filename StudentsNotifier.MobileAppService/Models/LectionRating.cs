@@ -8,6 +8,7 @@ namespace StudentsNotifier.MobileAppService.Models
     {
         public string Id { get; set; }
         public string LectionID { get; set; }
+        public string LectionName { get; set; }
         public string VoteCode { get; set; }
         public List<Tuple<string, int>> Votes { get; set; }
         public int DurationInSec { get; set; }

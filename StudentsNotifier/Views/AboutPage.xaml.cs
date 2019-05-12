@@ -25,9 +25,9 @@ namespace StudentsNotifier.Views
 
             var LoggedUser = new User
             {
-                Name = "Martin Gabriel",
+                Name = "Petr Novák",
                 StagID = "A15655",
-                Id = "testID"
+                Id = "..."
             };
 
             viewModel = new AboutViewModel(LoggedUser);

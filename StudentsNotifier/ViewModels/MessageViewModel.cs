@@ -16,7 +16,7 @@ namespace StudentsNotifier.ViewModels
 
         public MessageViewModel()
         {
-            Title = "Messages";
+            Title = "Zprávy";
             Messages = new ObservableCollection<Message>();
             LoadMessagesCommand = new Command(async () => await ExecuteLoadMessagesCommand());
 
@@ -38,7 +38,8 @@ namespace StudentsNotifier.ViewModels
             try
             {
                 Messages.Clear();
-                var messages = await DataStore.GetAllMessagesAsync(true);
+                //var messages = await DataStore.GetAllMessagesAsync(true);
+                var messages = await DataStore.GetUserMessagesAsync(DataStore.GetLoggedUserNotificationToken());
                 foreach (var msg in messages)
                 {
                     Messages.Add(msg);

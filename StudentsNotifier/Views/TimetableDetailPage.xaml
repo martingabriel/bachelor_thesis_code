@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="StudentsNotifier.Views.TimetableDetailPage" Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Color x:Key="Primary">#2196F3</Color>
+            <Color x:Key="Primary">#F37222</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
@@ -17,8 +17,8 @@
     <ContentPage.Content>
         <StackLayout Spacing="20" Padding="20">
             <Label Text="{Binding Akce.Nazev}" FontSize="Large" />
-            <Label Text="Message to send" />
-            <Picker Title="Select quick message text:">
+            <Label Text="Zpráva k odeslání:" />
+            <Picker x:Name="MessagePicker" Title="Vyberte rychlou zprávu:" SelectedIndexChanged="Handle_SelectedIndexChanged">
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Hodina začne s 15 min. zpožděním</x:String>
@@ -28,8 +28,9 @@
                     </x:Array>
                 </Picker.ItemsSource>
             </Picker>
-            <Button Text="Send message" BackgroundColor="{StaticResource Primary}" TextColor="White" />
-            <Label Text="Students:" FontSize="Medium" />
+            <Button Text="Zaslat zprávu" BackgroundColor="{StaticResource Primary}" TextColor="White" Command="{Binding SendMessageCommand}"/>
+            <Button Text="Zaslat požadavek na hodnocení" BackgroundColor="{StaticResource Primary}" TextColor="White" Command="{Binding SendRatingRequestCommand}"/>
+            <Label Text="Studenti:" FontSize="Medium" />
                 <ListView x:Name="StudentsListView" ItemsSource="{Binding Students}" VerticalOptions="FillAndExpand" HasUnevenRows="true" RefreshCommand="{Binding LoadStudentsCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement">
                     <ListView.ItemTemplate>
                         <DataTemplate>

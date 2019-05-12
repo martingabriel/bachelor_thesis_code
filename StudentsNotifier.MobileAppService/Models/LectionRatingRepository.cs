@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Linq;
+using StudentsNotifier.MobileAppService.NotificationHubs;
 
 namespace StudentsNotifier.MobileAppService.Models
 {
@@ -13,11 +14,17 @@ namespace StudentsNotifier.MobileAppService.Models
         private static ConcurrentDictionary<string, Vote> votes = 
             new ConcurrentDictionary<string, Vote>();
 
+
+        private NotificationHubProxy notifications;
+
+
         public LectionRatingRepository()
         {
             List<Tuple<string, int>> tuples = new List<Tuple<string, int>>();
             tuples.Add(new Tuple<string, int>("test", 1));
             Add(new LectionRating { Id = "guid1", Votes = tuples });
+
+            notifications = new NotificationHubProxy(null);
         }
 
         #region LectionRating
@@ -89,7 +96,26 @@ namespace StudentsNotifier.MobileAppService.Models
             // send request
             request.SendRequestResult = true;
 
+            SendPushNotification(request);
+
             return request.SendRequestResult;
+        }
+
+        private async void SendPushNotification(VoteRequest request)
+        {
+
+            // send message
+            string toast = "{\"aps\":{\"alert\":{\"title\" : \"Požadavek na hodnocení výuky\" }}}";
+
+            foreach (string userHandle in request.UserToRequestIds)
+            {
+                await notifications.SendNotification(new Notification()
+                {
+                    Content = toast,
+                    Platform = MobilePlatform.apns,
+                    Handle = userHandle
+                });
+            }
         }
 
         #endregion

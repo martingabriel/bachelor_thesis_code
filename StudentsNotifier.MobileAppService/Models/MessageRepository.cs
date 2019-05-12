@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Linq;
+using StudentsNotifier.MobileAppService.NotificationHubs;
+using StudentsNotifier.MobileAppService.Controllers;
 
 namespace StudentsNotifier.MobileAppService.Models
 {
@@ -9,15 +11,36 @@ namespace StudentsNotifier.MobileAppService.Models
     {
         private static ConcurrentDictionary<string, Message> messages = new ConcurrentDictionary<string, Message>();
 
+        private NotificationHubProxy notifications;
+
         public MessageRepository()
         {
-
+            notifications = new NotificationHubProxy(null);
         }
 
         public void Add(Message msg)
         {
             msg.Id = Guid.NewGuid().ToString();
             messages[msg.Id] = msg;
+
+            SendPushMessage(msg);
+        }
+
+        private async void SendPushMessage(Message msg)
+        {
+
+            // send message
+            string toast = "{\"aps\":{\"alert\":{\"title\" : \"Doručená zpráva:\", \"subtitle\" : \"" + msg.MessageFrom + "\",\"body\": \"" + msg.MessageText + "\"}}}";
+
+            foreach (string userHandle in msg.UserIds)
+            {
+                await notifications.SendNotification(new Notification()
+                {
+                    Content = toast,
+                    Platform = MobilePlatform.apns,
+                    Handle = userHandle
+                });
+            }
         }
 
         public Message Get(string id)

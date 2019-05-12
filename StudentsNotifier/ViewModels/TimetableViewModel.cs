@@ -14,7 +14,7 @@ namespace StudentsNotifier.ViewModels
 
         public TimetableViewModel()
         {
-            Title = "Timetable";
+            Title = "Rozvrh";
             RozvrhoveAkce = new ObservableCollection<RozvrhovaAkce>();
             LoadTimetableCommand = new Command(async () => await ExecuteLoadTimetableCommand());
 

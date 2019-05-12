@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using StudentsNotifier.MobileAppService.Models;
+using StudentsNotifier.MobileAppService.NotificationHubs;
 
 namespace StudentsNotifier.MobileAppService.Controllers
 {
@@ -45,13 +46,9 @@ namespace StudentsNotifier.MobileAppService.Controllers
                 }
 
                 MessageRepository.Add(item);
-
-                // send push notification message and store result
-                // item.SendMessageResult = true;
             }
             catch (Exception)
             {
-                item.SendMessageResult = false;
                 return BadRequest("Error while creating");
             }
             return Ok(item);

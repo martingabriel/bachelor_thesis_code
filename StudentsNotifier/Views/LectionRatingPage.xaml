@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="StudentsNotifier.Views.LectionRatingPage" Title="{Binding Title}" x:Name="BrowseLectionRatingPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="LectionRatingListView" ItemsSource="{Binding Ratings}" VerticalOptions="FillAndExpand" HasUnevenRows="true" RefreshCommand="{Binding LoadLectionRatingsCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement" ItemSelected="Handle_ItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="10">
+                                <Label Text="{Binding LectionName}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

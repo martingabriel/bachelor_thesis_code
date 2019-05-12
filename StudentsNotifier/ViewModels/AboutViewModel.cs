@@ -21,7 +21,7 @@ namespace StudentsNotifier.ViewModels
 
         public AboutViewModel(User usr = null)
         {
-            Title = "Settings";
+            Title = "Nastavení";
             LoggedUser = usr;
             LoggedUserId = LoggedUser.Id;
 
@@ -37,6 +37,7 @@ namespace StudentsNotifier.ViewModels
 
             try
             {
+                LoggedUser.NotificationToken = DataStore.GetLoggedUserNotificationToken();
                 User result = await DataStore.AddUserAsync(LoggedUser);
                 LoggedUser = result;
                 LoggedUserId = LoggedUser.Id;

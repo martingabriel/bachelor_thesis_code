@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 
 using StudentsNotifier.MobileAppService.Models;
+using StudentsNotifier.MobileAppService.Configuration;
+using StudentsNotifier.MobileAppService.NotificationHubs;
 
 namespace StudentsNotifier.MobileAppService
 {
@@ -29,11 +31,13 @@ namespace StudentsNotifier.MobileAppService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<NotificationHubConfiguration>(Configuration.GetSection("NotificationHub"));
             services.AddMvc();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IRozvrhovaAkceRepository, RozvrhoveAkceRepository>();
             services.AddSingleton<IMessageRepository, MessageRepository>();
             services.AddSingleton<ILectionRating, LectionRatingRepository>();
+            services.AddSingleton<INotificationHub, NotificationHubProxy>();
 
             services.AddSwaggerGen(c =>
             {
