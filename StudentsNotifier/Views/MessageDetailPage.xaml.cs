@@ -26,7 +26,8 @@ namespace StudentsNotifier.Views
 
             var msg = new Message
             {
-                MessageText = "Text zprávy...",
+                // mock debug data
+                MessageText = "Text message...",
                 DateTime = DateTime.Now,
                 MessageFrom = "123abc"
             };

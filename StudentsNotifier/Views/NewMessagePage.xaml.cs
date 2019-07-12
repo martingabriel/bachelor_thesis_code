@@ -19,8 +19,8 @@ namespace StudentsNotifier.Views
 
             Msg = new Message
             {
-                MessageFrom = "Od: Test",
-                MessageText = "Text zprávy",
+                MessageFrom = "From: Test",
+                MessageText = "Message text",
                 DateTime = DateTime.Now
             };
 

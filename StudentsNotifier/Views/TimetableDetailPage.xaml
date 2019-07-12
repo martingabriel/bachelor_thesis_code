@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="StudentsNotifier.Views.TimetableDetailPage" Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -17,20 +17,20 @@
     <ContentPage.Content>
         <StackLayout Spacing="20" Padding="20">
             <Label Text="{Binding Akce.Nazev}" FontSize="Large" />
-            <Label Text="Zpráva k odeslání:" />
-            <Picker x:Name="MessagePicker" Title="Vyberte rychlou zprávu:" SelectedIndexChanged="Handle_SelectedIndexChanged">
+            <Label Text="Message to send:" />
+            <Picker x:Name="MessagePicker" Title="Choose message:" SelectedIndexChanged="Handle_SelectedIndexChanged">
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
-                        <x:String>Hodina začne s 15 min. zpožděním</x:String>
-                        <x:String>Změna učebny</x:String>
-                        <x:String>Hodina odpadá</x:String>
-                        <x:String>Hodina přesunuta o 1 hod.</x:String>
+                        <x:String>Lection starts with 15 minutes delay</x:String>
+                        <x:String>Room change</x:String>
+                        <x:String>Lection is cancelled</x:String>
+                        <x:String>Lection is shifted by 1 hour</x:String>
                     </x:Array>
                 </Picker.ItemsSource>
             </Picker>
-            <Button Text="Zaslat zprávu" BackgroundColor="{StaticResource Primary}" TextColor="White" Command="{Binding SendMessageCommand}"/>
-            <Button Text="Zaslat požadavek na hodnocení" BackgroundColor="{StaticResource Primary}" TextColor="White" Command="{Binding SendRatingRequestCommand}"/>
-            <Label Text="Studenti:" FontSize="Medium" />
+            <Button Text="{Binding SendButtonText}" BackgroundColor="{StaticResource Primary}" TextColor="White" Command="{Binding SendMessageCommand}"/>
+            <Button Text="{Binding SendRatingReqButtonText}" BackgroundColor="{StaticResource Primary}" TextColor="White" Command="{Binding SendRatingRequestCommand}"/>
+            <Label Text="Students:" FontSize="Medium" />
                 <ListView x:Name="StudentsListView" ItemsSource="{Binding Students}" VerticalOptions="FillAndExpand" HasUnevenRows="true" RefreshCommand="{Binding LoadStudentsCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement">
                     <ListView.ItemTemplate>
                         <DataTemplate>

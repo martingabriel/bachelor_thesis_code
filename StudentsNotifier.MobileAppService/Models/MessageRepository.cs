@@ -30,7 +30,7 @@ namespace StudentsNotifier.MobileAppService.Models
         {
 
             // send message
-            string toast = "{\"aps\":{\"alert\":{\"title\" : \"Doručená zpráva:\", \"subtitle\" : \"" + msg.MessageFrom + "\",\"body\": \"" + msg.MessageText + "\"}}}";
+            string toast = "{\"aps\":{\"alert\":{\"title\" : \"Received message:\", \"subtitle\" : \"" + msg.MessageFrom + "\",\"body\": \"" + msg.MessageText + "\"}}}";
 
             foreach (string userHandle in msg.UserIds)
             {

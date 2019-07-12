@@ -20,9 +20,9 @@ namespace StudentsNotifier.MobileAppService.Models
 
         public LectionRatingRepository()
         {
-            List<Tuple<string, int>> tuples = new List<Tuple<string, int>>();
+            /*List<Tuple<string, int>> tuples = new List<Tuple<string, int>>();
             tuples.Add(new Tuple<string, int>("test", 1));
-            Add(new LectionRating { Id = "guid1", Votes = tuples });
+            Add(new LectionRating { Id = "guid1", Votes = tuples });*/
 
             notifications = new NotificationHubProxy(null);
         }
@@ -32,6 +32,7 @@ namespace StudentsNotifier.MobileAppService.Models
         public void Add(LectionRating item)
         {
             item.Id = Guid.NewGuid().ToString();
+            item.Votes.Clear();
             lections[item.Id] = item;
         }
 

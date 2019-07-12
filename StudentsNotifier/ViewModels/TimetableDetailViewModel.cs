@@ -19,6 +19,20 @@ namespace StudentsNotifier.ViewModels
         public Command SendMessageCommand { get; set; }
         public Command SendRatingRequestCommand { get; set; }
 
+        string sendText = string.Empty;
+        public string SendButtonText
+        {
+            get { return sendText; }
+            set { SetProperty(ref sendText, value); }
+        }
+
+        string sendRatingReqText = string.Empty;
+        public string SendRatingReqButtonText
+        {
+            get { return sendRatingReqText; }
+            set { SetProperty(ref sendRatingReqText, value); }
+        }
+
         public TimetableDetailViewModel(RozvrhovaAkce akce = null)
         {
             Title = akce?.Nazev;
@@ -29,6 +43,9 @@ namespace StudentsNotifier.ViewModels
             LoadStudentsCommand = new Command(async () => await ExecuteLoadStudentsCommand());
             SendMessageCommand = new Command(async () => await ExecuteSendMessageCommand());
             SendRatingRequestCommand = new Command(async () => await ExecuteSendRatingRequestCommand());
+
+            SendButtonText = "Send message";
+            SendRatingReqButtonText = "Send lection rating request";
 
             ExecuteLoadStudentsCommand();
         }
@@ -83,6 +100,8 @@ namespace StudentsNotifier.ViewModels
                 msg.MessageText = SelectedMessage;
 
                 bool result = await DataStore.AddMessageAsync(msg);
+
+                SendButtonText = "✔️";
             }
             catch (Exception ex)
             {
@@ -107,7 +126,9 @@ namespace StudentsNotifier.ViewModels
                 newRating.LectionID = Akce.RoakIdno.ToString();
                 newRating.LectionName = Akce.Nazev;
 
+                SendRatingReqButtonText = "✔️";
                 await DataStore.AddLectionRating(newRating);
+
             }
             catch (Exception ex)
             {

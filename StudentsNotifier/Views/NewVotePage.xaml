@@ -5,8 +5,8 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Spacing="20" Padding="15">
-            <Label Text="Hodnocení:" FontSize="Medium" />
-            <Picker x:Name="MessagePicker" Title="Vyberte hodnocení:" SelectedIndexChanged="Handle_SelectedIndexChanged">
+            <Label Text="Rating:" FontSize="Medium" />
+            <Picker x:Name="MessagePicker" Title="Select rating:" SelectedIndexChanged="Handle_SelectedIndexChanged">
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>1</x:String>

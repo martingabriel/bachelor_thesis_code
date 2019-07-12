@@ -12,8 +12,8 @@ namespace StudentsNotifier.MobileAppService.NotificationHubs
         private NotificationHubConfiguration _configuration;
         private NotificationHubClient _hubClient;
 
-        string connectionString = "Endpoint=sb://mynotificationhubnmspc.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=mwQOFxOMSl1Do9LIRbYIjZEcEddsqtQx76t84zbz8d0=";
-        string hubName = "mynotificationhub";
+        string connectionString = "put your connection string here";
+        string hubName = "put name of your hub here";
 
         public NotificationHubProxy(NotificationHubConfiguration configuration)
         {

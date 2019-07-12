@@ -27,7 +27,7 @@ namespace StudentsNotifier.Views
 
             var akce = new RozvrhovaAkce
             {
-                Nazev = "TestAkce"
+                Nazev = "TestAction"
             };
 
             viewModel = new TimetableDetailViewModel(akce);

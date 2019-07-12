@@ -25,7 +25,8 @@ namespace StudentsNotifier.Views
 
             var LoggedUser = new User
             {
-                Name = "Satoshi Nakamoto",
+                // mock debug data
+                Name = "...",
                 StagID = "A15655",
                 Id = "...",
                 NotificationToken="1234"
@@ -33,6 +34,9 @@ namespace StudentsNotifier.Views
 
             viewModel = new AboutViewModel(LoggedUser);
             BindingContext = viewModel;
+
+            // mock debug data
+            LoggedUser.Name = "Satoshi Nakamoto";
         }
     }
 }

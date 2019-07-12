@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="StudentsNotifier.Views.MessageDetailPage" Title="{Binding Title}">
     <StackLayout Spacing="20" Padding="20">
         <Label Text="{Binding Msg.MessageFrom}" FontSize="Large" />
         <Label Text="{Binding Msg.DateTime}" FontSize="Micro" />
-        <Label Text="Zpráva:" FontSize="Medium" />
+        <Label Text="Message:" FontSize="Medium" />
         <Label Text="{Binding Msg.MessageText}" FontSize="Small" />
     </StackLayout>
 </ContentPage>

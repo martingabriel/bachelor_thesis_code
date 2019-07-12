@@ -16,7 +16,7 @@ namespace StudentsNotifier.ViewModels
 
         public LectionRatingViewModel()
         {
-            Title = "Hodnocení výuky";
+            Title = "Lection rating";
             Ratings = new ObservableCollection<LectionRating>();
             Votes = new ObservableCollection<Vote>();
             LoadLectionRatingsCommand = new Command(async () => await ExecuteLoadLectionRatingsCommand());

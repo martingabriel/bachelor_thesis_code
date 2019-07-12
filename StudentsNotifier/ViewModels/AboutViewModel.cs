@@ -12,18 +12,34 @@ namespace StudentsNotifier.ViewModels
         public User LoggedUser { get; set; }
         public ICommand GetUserData { get; }
 
-        string title = string.Empty;
+        string id = string.Empty;
         public string LoggedUserId
         {
-            get { return title; }
-            set { SetProperty(ref title, value); }
+            get { return id; }
+            set { SetProperty(ref id, value); }
+        }
+
+        string name = string.Empty;
+        public string LoggedUserName
+        {
+            get { return name; }
+            set { SetProperty(ref name, value); }
+        }
+
+        string signText = string.Empty;
+        public string SignButtonText
+        {
+            get { return signText; }
+            set { SetProperty(ref signText, value); }
         }
 
         public AboutViewModel(User usr = null)
         {
-            Title = "Nastavení";
+            Title = "Settings";
             LoggedUser = usr;
+            LoggedUserName = LoggedUser.Name;
             LoggedUserId = LoggedUser.Id;
+            SignButtonText = "Login";
 
             GetUserData = new Command(async () => await ExecuteLoadUserDataCommand());
         }
@@ -37,11 +53,17 @@ namespace StudentsNotifier.ViewModels
 
             try
             {
+                // mock debug data
                 LoggedUser.NotificationToken = DataStore.GetLoggedUserNotificationToken();
                 User result = await DataStore.AddUserAsync(LoggedUser);
                 LoggedUser = result;
+                LoggedUserName = "Satoshi Nakamoto";
                 LoggedUserId = LoggedUser.Id;
+                SignButtonText = "✔️";
+
+                // debug
                 Debug.WriteLine("User [" + LoggedUser.StagID  + "] ID: " + LoggedUser.Id);
+
             }
             catch (Exception ex)
             {

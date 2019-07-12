@@ -148,7 +148,7 @@ namespace StudentsNotifier.iOS
     public class Constants
     {
         // Azure app-specific connection string and hub path
-        public const string ConnectionString = "Endpoint=sb://mynotificationhubnmspc.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=hckj3X8pr0acJeBXxHYovS48Y8Eh0Hba8wVa6RbNRXc=";
-        public const string NotificationHubPath = "mynotificationhub";
+        public const string ConnectionString = "put your hub connection string here";
+        public const string NotificationHubPath = "put name of you hub here";
     }
 }

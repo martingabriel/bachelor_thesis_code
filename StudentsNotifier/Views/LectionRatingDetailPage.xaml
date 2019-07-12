@@ -6,7 +6,7 @@
     x:Class="StudentsNotifier.Views.LectionRatingDetailPage"
     Title="{Binding Title}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Nové hodnocení" Clicked="AddVote_Clicked">
+        <ToolbarItem Text="New rating" Clicked="AddVote_Clicked">
             <ToolbarItem.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="UWP" Value="add.png" />
@@ -17,10 +17,12 @@
     <ContentPage.Content>
         <StackLayout Spacing="20" Padding="20">
             <Label Text="{Binding rating.LectionName}" FontSize="Large"/>
-            <Label Text="Průměrné hodnocení:" FontSize="Medium"/>
-            <Label Text="{Binding rating.AvgVote}" FontSize="Small"/>
+            <Label Text="Average rating:" FontSize="Medium"/>
+            <Label x:Name="avgVoteLabel" Text="{Binding rating.AvgVote}" FontSize="Small"/>
             
             <forms:ChartView x:Name="VoteChart" HeightRequest="250"/>
+            
+            <Button Text="Refresh" Clicked="Reload_Clicked"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

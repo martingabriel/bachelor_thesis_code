@@ -13,9 +13,9 @@ namespace StudentsNotifier.MobileAppService.Models
         public List<Tuple<string, int>> Votes { get; set; }
         public int DurationInSec { get; set; }
 
-        public double AvgVote { get { return Votes.Average(x => x.Item2); } }
-        public int MaxVote { get { return Votes.Max(x => x.Item2); } }
-        public int MinVote { get { return Votes.Min(x => x.Item2); } }
+        public double AvgVote { get { return Votes.Count > 0 ? Votes.Average(x => x.Item2) : 0; } }
+        public int MaxVote { get { return Votes.Count > 0 ? Votes.Max(x => x.Item2) : 0; } }
+        public int MinVote { get { return Votes.Count > 0 ? Votes.Min(x => x.Item2) : 0; } }
     }
 
     public class Vote

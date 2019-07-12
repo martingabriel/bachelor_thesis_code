@@ -22,7 +22,7 @@ namespace StudentsNotifier.MobileAppService.Models
         public string Nazev { get; set; }
 
         [JsonProperty("katedra")]
-        public string Katedra { get; set; }
+        public Katedra Katedra { get; set; }
 
         [JsonProperty("predmet")]
         public string Predmet { get; set; }
@@ -64,7 +64,7 @@ namespace StudentsNotifier.MobileAppService.Models
         public string TypAkceZkr { get; set; }
 
         [JsonProperty("semestr")]
-        public string Semestr { get; set; }
+        public Semestr Semestr { get; set; }
 
         [JsonProperty("platnost")]
         public string Platnost { get; set; }
@@ -85,10 +85,10 @@ namespace StudentsNotifier.MobileAppService.Models
         public object HodinaDo { get; set; }
 
         [JsonProperty("hodinaSkutOd")]
-        public HodinaSkutDo HodinaSkutOd { get; set; }
+        public Datum HodinaSkutOd { get; set; }
 
         [JsonProperty("hodinaSkutDo")]
-        public HodinaSkutDo HodinaSkutDo { get; set; }
+        public Datum HodinaSkutDo { get; set; }
 
         [JsonProperty("tydenOd")]
         public long TydenOd { get; set; }
@@ -121,16 +121,16 @@ namespace StudentsNotifier.MobileAppService.Models
         public object CasovaRada { get; set; }
 
         [JsonProperty("datum")]
-        public HodinaSkutDo Datum { get; set; }
+        public Datum Datum { get; set; }
 
         [JsonProperty("datumOd")]
-        public HodinaSkutDo DatumOd { get; set; }
+        public Datum DatumOd { get; set; }
 
         [JsonProperty("datumDo")]
-        public HodinaSkutDo DatumDo { get; set; }
+        public Datum DatumDo { get; set; }
 
         [JsonProperty("druhAkce")]
-        public string DruhAkce { get; set; }
+        public DruhAkce DruhAkce { get; set; }
 
         [JsonProperty("vsichniUciteleUcitIdno")]
         public string VsichniUciteleUcitIdno { get; set; }
@@ -145,7 +145,7 @@ namespace StudentsNotifier.MobileAppService.Models
         public string VsichniUcitelePrijmeni { get; set; }
 
         [JsonProperty("referencedIdno")]
-        public long ReferencedIdno { get; set; }
+        public long? ReferencedIdno { get; set; }
 
         [JsonProperty("poznamkaRozvrhare")]
         public object PoznamkaRozvrhare { get; set; }
@@ -160,7 +160,7 @@ namespace StudentsNotifier.MobileAppService.Models
         public object ZakazaneAkce { get; set; }
     }
 
-    public partial class HodinaSkutDo
+    public partial class Datum
     {
         [JsonProperty("value")]
         public string Value { get; set; }
@@ -192,6 +192,12 @@ namespace StudentsNotifier.MobileAppService.Models
         [JsonProperty("podilNaVyuce")]
         public object PodilNaVyuce { get; set; }
     }
+
+    public enum DruhAkce { R, Z };
+
+    public enum Katedra { Auart };
+
+    public enum Semestr { Ls, Zl, Zs };
 
     public partial class RozvrhoveAkce
     {

@@ -15,9 +15,11 @@ namespace StudentsNotifier.MobileAppService.Models
 
         public UserRepository()
         {
-            Add(new User { Id = Guid.NewGuid().ToString(), Name = "User 1", Role = "ST"});
-            Add(new User { Id = Guid.NewGuid().ToString(), Name = "User 2", Role = "UC"});
-            Add(new User { Id = Guid.NewGuid().ToString(), Name = "User 3", Role = "ST"});
+            // mock debug data
+            Add(new User { Id = Guid.NewGuid().ToString(), Name = "Jan Novák", Role = "ST", StagID="A15655", NotificationToken="string" });
+            Add(new User { Id = Guid.NewGuid().ToString(), Name = "Jakub Svoboda", Role = "ST", StagID="A15655", NotificationToken="string" });
+            Add(new User { Id = Guid.NewGuid().ToString(), Name = "Petr Novotný", Role = "ST", StagID="A15655", NotificationToken="string" });
+            Add(new User { Id = Guid.NewGuid().ToString(), Name = "Tomáš Kučera", Role = "ST", StagID="A15655", NotificationToken="string" });
         }
 
         public void Add(User user)
@@ -72,9 +74,10 @@ namespace StudentsNotifier.MobileAppService.Models
                         users[userId].SetRozvrhoveAkce(rozvrhoveAkce.RozvrhovaAkce);
                         return users[userId].RozvrhoveAkce;
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         Debug.WriteLine("Json read failed..");
+                        Debug.WriteLine(ex.ToString());
                         return null;
                     }
                 }

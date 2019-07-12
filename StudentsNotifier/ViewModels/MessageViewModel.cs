@@ -16,7 +16,7 @@ namespace StudentsNotifier.ViewModels
 
         public MessageViewModel()
         {
-            Title = "Zprávy";
+            Title = "Messages";
             Messages = new ObservableCollection<Message>();
             LoadMessagesCommand = new Command(async () => await ExecuteLoadMessagesCommand());
 
