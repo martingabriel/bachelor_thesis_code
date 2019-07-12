@@ -10,11 +10,7 @@ Repository contains 3 projects:
 3. **StudentsNotifier.iOS**
     - iOS specific implementation
 
-## StudentsNotifier.MobileAppService
-> TBD
 
-## StudentsNotifier
-> TBD
 
-## StudentsNotifier.iOS
-> TBD
+**Project description is in [main repository](https://github.com/martingabriel/bachelor_thesis).**
+
